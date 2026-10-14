@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<!--
+  미로야 놀자! / Play with Maze! — 개인정보처리방침 (Privacy Policy)
+  앱 첫 화면 아래 "개인정보 처리방침" 링크(AppInfo.privacyPolicyURL)가 가리키는
+  App Store 제출용 단독 페이지입니다. 외부 파일·폰트·스크립트에 의존하지 않아요.
+  틀과 CSS는 play/Asset/privacy.html에서 가져오고 색만 이 앱 값으로 바꿨습니다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인정보처리방침 · 미로야 놀자! / Privacy Policy · Play with Maze!</title>
+<meta name="description" content="미로야 놀자!는 개인정보를 수집하지 않습니다. Play with Maze! collects no personal information.">
+<meta name="color-scheme" content="light">
+<style>
+  :root {
+    --ink: #3B3B4F;
+    --brand-ink: #21263D;
+    --brand-subtle: #737A94;
+    /* 아이콘 배경 그라데이션과 같은 값 (Tools/make_icon.swift bgTop·bgBottom) */
+    --grad-start: #8C6BF5;
+    --grad-end: #5438AD;
+    /* 앱 배경(Theme.background)의 연보라를 조금 진하게 한 값 */
+    --backdrop-top: #DCD6FF;
+    --backdrop-bottom: #EDE3FF;
+    /* 타일 그림 색 — 모두 Theme에서 가져왔습니다 */
+    --violet: #6D4FD8;
+    --coral: #F56B6B;
+    --sky: #3DB8D9;
+    --yellow: #FFC740;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 28px 18px 56px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Apple SD Gothic Neo",
+                 "Segoe UI", "Noto Sans KR", system-ui, sans-serif;
+    color: var(--ink);
+    line-height: 1.7;
+    background: linear-gradient(180deg, rgba(220,214,255,0.75) 0%, rgba(237,227,255,0.35) 42%, #fff 100%);
+    background-attachment: fixed;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  /* 이름표 */
+  header { text-align: center; margin-bottom: 26px; }
+  .mark { width: 76px; height: 76px; display: block; margin: 0 auto 12px; }
+  h1 {
+    margin: 0;
+    font-size: clamp(22px, 5.2vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--brand-ink);
+  }
+  .sub { margin: 6px 0 0; font-size: 14px; font-weight: 600; color: var(--brand-subtle); }
+
+  /* 언어 고르기 */
+  .langs {
+    display: flex; justify-content: center; gap: 6px;
+    margin: 18px auto 0; padding: 4px;
+    width: max-content;
+    background: rgba(255,255,255,0.8);
+    border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .langs button {
+    appearance: none; border: 0; cursor: pointer;
+    font: inherit; font-size: 13px; font-weight: 800;
+    color: var(--brand-subtle);
+    padding: 7px 16px; border-radius: 999px;
+    background: transparent;
+    transition: background 0.15s, color 0.15s;
+  }
+  .langs button[aria-pressed="true"] {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    color: #fff;
+  }
+  .langs button:focus-visible { outline: 3px solid var(--grad-end); outline-offset: 2px; }
+
+  /* 안내 카드 */
+  .intro {
+    margin: 26px 0 20px;
+    font-size: 15px; font-weight: 600;
+    color: rgba(59,59,79,0.8);
+  }
+  .card {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #fff;
+    border: 1.5px solid rgba(59,59,79,0.08);
+    border-radius: 20px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  }
+  .card .emoji { font-size: 28px; line-height: 1.2; flex: none; }
+  .card h2 {
+    margin: 0 0 4px;
+    font-size: 17px; font-weight: 800; letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .card p { margin: 0; font-size: 14.5px; color: rgba(59,59,79,0.72); }
+
+  /* 자세히 */
+  details {
+    background: rgba(255,255,255,0.72);
+    border: 1.5px solid rgba(59,59,79,0.08);
+    border-radius: 20px;
+    padding: 4px 18px;
+    margin-top: 22px;
+  }
+  summary {
+    cursor: pointer; list-style: none;
+    padding: 12px 0;
+    font-size: 15px; font-weight: 800;
+    color: var(--brand-ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: " ⌄"; color: var(--brand-subtle); }
+  details[open] summary::after { content: " ⌃"; }
+  details h3 {
+    margin: 16px 0 4px;
+    font-size: 14.5px; font-weight: 800; color: var(--ink);
+  }
+  details p, details li { font-size: 14px; color: rgba(59,59,79,0.75); }
+  details ul { margin: 4px 0 0; padding-left: 22px; }
+  details > *:last-child { margin-bottom: 16px; }
+  a { color: #6D4FD8; font-weight: 700; }
+
+  footer {
+    margin-top: 30px; text-align: center;
+    font-size: 12px; font-weight: 700;
+    color: rgba(59,59,79,0.45);
+  }
+  footer p { margin: 3px 0; }
+
+  /* 언어 전환 */
+  [data-lang] { display: none; }
+  html[lang="ko"] [data-lang="ko"],
+  html[lang="en"] [data-lang="en"] { display: revert; }
+  html[lang="ko"] .card[data-lang="ko"],
+  html[lang="en"] .card[data-lang="en"] { display: flex; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .langs { display: none; }
+    [data-lang] { display: revert !important; }
+    details { display: block; }
+    details > div { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <!-- 앱 아이콘과 같은 그림: 보라 네모 안 하얀 타일 2×2
+         (동그란 미로·출발 별·네모 미로 길·도착 깃발) -->
+    <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="미로야 놀자! / Play with Maze!">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8C6BF5"/>
+          <stop offset="1" stop-color="#5438AD"/>
+        </linearGradient>
+      </defs>
+      <rect width="100" height="100" rx="24" fill="url(#g)"/>
+      <g fill="#fff" fill-opacity="0.97">
+        <rect x="13.2" y="13.2" width="34.2" height="34.2" rx="9.4"/>
+        <rect x="52.6" y="13.2" width="34.2" height="34.2" rx="9.4"/>
+        <rect x="13.2" y="52.6" width="34.2" height="34.2" rx="9.4"/>
+        <rect x="52.6" y="52.6" width="34.2" height="34.2" rx="9.4"/>
+      </g>
+      <!-- 동그란 미로: 한 곳씩 뚫린 고리 둘과 가운데 도착점 -->
+      <g fill="none" stroke="#3DB8D9" stroke-width="3.6" stroke-linecap="round">
+        <path d="M37.4 20.6A12.04 12.04 0 1 1 41 35.8"/>
+        <path d="M24 33.5A7.11 7.11 0 1 1 24.6 26.1"/>
+      </g>
+      <circle cx="30.3" cy="30.3" r="2.5" fill="#3DB8D9"/>
+      <!-- 출발 별 -->
+      <path d="M69.7 17.3 66.5 25.9 57.3 26.3 64.5 32 62.1 40.8 69.7 35.8 77.3 40.8 74.9 32 82.1 26.3 72.9 25.9z" fill="#FFC740"/>
+      <!-- 네모 미로: 계단처럼 꺾여 올라가는 길 -->
+      <path d="M20.5 79.6 20.5 69.7 30.3 69.7 30.3 59.9 40.2 59.9" fill="none" stroke="#F56B6B" stroke-width="4.1" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 도착 체크 깃발 -->
+      <g fill="#6D4FD8">
+        <rect x="58.4" y="69.7" width="11.3" height="11.3"/>
+        <rect x="69.7" y="58.4" width="11.3" height="11.3"/>
+      </g>
+      <rect x="58.4" y="58.4" width="22.6" height="22.6" fill="none" stroke="#6D4FD8" stroke-width="2.7"/>
+    </svg>
+
+    <h1>
+      <span data-lang="ko">개인정보처리방침</span>
+      <span data-lang="en">Privacy Policy</span>
+    </h1>
+    <p class="sub">
+      <span data-lang="ko">미로야 놀자! 🧩</span>
+      <span data-lang="en">Play with Maze! 🧩</span>
+    </p>
+
+    <nav class="langs" aria-label="Language">
+      <button type="button" data-set-lang="ko" aria-pressed="true">한국어</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">English</button>
+    </nav>
+  </header>
+
+  <main>
+    <p class="intro" data-lang="ko">
+      미로야 놀자!는 아이들이 쓰는 앱이라 개인정보를 최대한 다루지 않도록 만들었어요.
+      가입할 것도 없고, 기기 밖으로 나가는 정보도 없습니다.
+    </p>
+    <p class="intro" data-lang="en">
+      Play with Maze! is made for children, so it is built to be as private as possible:
+      there is nothing to sign up for and nothing leaves the device.
+    </p>
+
+    <!-- 1 -->
+    <div class="card" data-lang="ko">
+      <span class="emoji" aria-hidden="true">🙅</span>
+      <div>
+        <h2>아무것도 수집하지 않아요</h2>
+        <p>계정도 이메일도 이름도 묻지 않고, 광고나 사용 기록 분석도 넣지 않았어요.
+          아이가 손가락으로 그린 미로 길은 그 판이 끝나면 사라집니다.</p>
+      </div>
+    </div>
+    <div class="card" data-lang="en">
+      <span class="emoji" aria-hidden="true">🙅</span>
+      <div>
+        <h2>We collect nothing</h2>
+        <p>No accounts, no email, no names, no ads and no analytics.
+          The trail your child traces through a maze disappears when that maze ends.</p>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card" data-lang="ko">
+      <span class="emoji" aria-hidden="true">⭐️</span>
+      <div>
+        <h2>별과 열린 단계는 기기에만 있어요</h2>
+        <p>받은 별, 열린 단계, 소리·진동 스위치만 이 기기 안에 저장돼요. 앱을 지우면 함께 사라지고,
+          설정 화면의 기록 지우기로 언제든 처음으로 돌릴 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="card" data-lang="en">
+      <span class="emoji" aria-hidden="true">⭐️</span>
+      <div>
+        <h2>Stars stay on the device</h2>
+        <p>Only the stars earned, the levels unlocked and the sound and vibration switches are saved,
+          on this device alone. Deleting the app removes them, and Reset Progress in Settings clears
+          them at any time.</p>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card" data-lang="ko">
+      <span class="emoji" aria-hidden="true">📵</span>
+      <div>
+        <h2>인터넷을 쓰지 않아요</h2>
+        <p>인터넷 없이도 모든 단계를 놀 수 있고, 서버로 무엇도 보내지 않아요.
+          미로는 기기 안에서 그때그때 새로 만들어집니다.</p>
+      </div>
+    </div>
+    <div class="card" data-lang="en">
+      <span class="emoji" aria-hidden="true">📵</span>
+      <div>
+        <h2>No internet needed</h2>
+        <p>Every level works fully offline and nothing is ever sent to a server.
+          Each maze is generated on the device as you play.</p>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card" data-lang="ko">
+      <span class="emoji" aria-hidden="true">🔒</span>
+      <div>
+        <h2>어른 화면은 잠겨 있어요</h2>
+        <p>설정과 이 방침 링크는 어른만 답할 수 있는 곱셈 문제를 지나야 열립니다.
+          아이가 혼자 앱 밖으로 나가지 않게 하려고요.</p>
+      </div>
+    </div>
+    <div class="card" data-lang="en">
+      <span class="emoji" aria-hidden="true">🔒</span>
+      <div>
+        <h2>Grown-up screens are locked</h2>
+        <p>Settings and the link to this policy sit behind a multiplication question only a grown-up
+          can answer, so a child cannot wander out of the app alone.</p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card" data-lang="ko">
+      <span class="emoji" aria-hidden="true">🧩</span>
+      <div>
+        <h2>미로만 있어요</h2>
+        <p>앱 안에서 결제할 것도, 다른 사람과 연결되는 기능도 없어요.
+          별에서 깃발까지 손가락으로 가는 놀이 하나뿐입니다.</p>
+      </div>
+    </div>
+    <div class="card" data-lang="en">
+      <span class="emoji" aria-hidden="true">🧩</span>
+      <div>
+        <h2>Just mazes</h2>
+        <p>No in-app purchases and no social features — only tracing from the star to the flag.</p>
+      </div>
+    </div>
+
+    <!-- 자세한 조항 (심사·법적 표기용) -->
+    <details data-lang="ko">
+      <summary>자세히 읽기 (보호자·심사용)</summary>
+      <div>
+        <h3>1. 적용 범위</h3>
+        <p>이 방침은 Wooni(이하 “개발자”)가 만든 iPhone·iPad 앱
+          <strong>미로야 놀자!</strong>(번들 ID <code>com.wooni.playwithmiro</code>, 이하 “앱”)에 적용됩니다.</p>
+
+        <h3>2. 수집하는 개인정보</h3>
+        <p><strong>없습니다.</strong> 앱은 생년월일·이름·이메일·전화번호·주소·사진·연락처·위치·기기
+          식별자(IDFA 등)를 비롯한 어떠한 개인정보도 수집·전송하지 않습니다. 회원가입 절차가 없고,
+          로그인할 계정도 없으며, 아이가 글자를 적어 넣는 칸도 없습니다.</p>
+        <p>어른 확인 화면에서 어른이 적는 곱셈 답은 맞았는지 확인하는 데만 쓰이고 저장되지 않습니다.</p>
+
+        <h3>3. 기기 안에 저장되는 것</h3>
+        <ul>
+          <li>단계별로 받은 별 개수와 그에 따라 열린 단계</li>
+          <li>효과음·진동 스위치를 켜 두었는지 여부</li>
+        </ul>
+        <p>이 정보는 iOS의 <code>UserDefaults</code>를 통해 기기 내부 저장 공간에만 남고 외부로
+          전송되지 않으며, 앱을 삭제하면 함께 지워집니다. 개발자는 이 정보에 접근할 수 없습니다.
+          손가락으로 지나온 미로 길과 남은 시간은 화면을 벗어나면 사라지고 아무 곳에도 저장되지 않습니다.</p>
+
+        <h3>4. 어른 확인과 앱 밖으로 나가는 링크</h3>
+        <p>설정 화면과 이 방침 전문 링크는 곱셈 문제(어른 확인)를 지나야 열립니다.
+          앱 밖으로 나가는 링크는 이 방침 페이지 하나와 문의 메일 주소뿐이고, 둘 다 어른 확인
+          뒤에 있습니다. 광고 링크나 다른 앱 소개는 없습니다.</p>
+
+        <h3>5. 네트워크 통신 · 제3자 제공</h3>
+        <p>앱에는 네트워크 통신 기능이 없습니다. 광고 SDK, 분석 도구, 크래시 리포터, 소셜 로그인 등
+          제3자 코드를 포함하지 않으며, 따라서 제3자에게 제공·위탁하거나 국외로 이전하는 개인정보도 없습니다.</p>
+
+        <h3>6. 아동의 개인정보</h3>
+        <p>앱은 만 5세 이상 아동을 주 이용자로 하며, 미국 COPPA·EU GDPR·대한민국 개인정보 보호법에서
+          정한 아동 개인정보를 포함해 어떠한 개인정보도 수집하지 않습니다. 앱 안에는 결제나 채팅·공유
+          같은 다른 사람과 연결되는 기능이 없습니다.</p>
+
+        <h3>7. 정보주체의 권리</h3>
+        <p>수집하는 정보가 없으므로 열람·정정·삭제·처리정지를 요청할 대상이 없습니다.
+          기기에 저장된 별과 열린 단계는 설정 화면의 <strong>기록 지우기</strong> 또는 앱 삭제로
+          언제든 직접 지울 수 있습니다.</p>
+
+        <h3>8. 방침 변경</h3>
+        <p>내용이 바뀌면 이 페이지를 고치고 아래 최종 수정일을 갱신합니다. 중요한 변경은 앱 업데이트 설명에도 적습니다.</p>
+
+        <h3>9. 문의</h3>
+        <p>개인정보 관련 문의: <a href="mailto:baby.planner.wooni@gmail.com">baby.planner.wooni@gmail.com</a></p>
+      </div>
+    </details>
+
+    <details data-lang="en">
+      <summary>Full policy (for parents &amp; App Review)</summary>
+      <div>
+        <h3>1. Scope</h3>
+        <p>This policy applies to <strong>Play with Maze!</strong> (bundle ID
+          <code>com.wooni.playwithmiro</code>, the “App”), an iPhone and iPad app made by
+          Wooni (the “Developer”).</p>
+
+        <h3>2. Personal data we collect</h3>
+        <p><strong>None.</strong> The App does not collect or transmit any personal data —
+          no date of birth, name, email, phone number, address, photos, contacts, location or
+          device identifiers (such as IDFA). There is no sign-up, no account to log in to, and no
+          field anywhere for a child to type into.</p>
+        <p>The multiplication answer a grown-up types at the parental gate is only checked and never stored.</p>
+
+        <h3>3. What is stored on the device</h3>
+        <ul>
+          <li>The stars earned per level and the levels unlocked by them</li>
+          <li>Whether the sound-effects and vibration switches are on</li>
+        </ul>
+        <p>This is kept in the device’s local storage via iOS <code>UserDefaults</code>, is never
+          transmitted anywhere, and is deleted when the App is deleted. The Developer has no access
+          to it. The trail traced through a maze and the time remaining exist only on screen and are
+          never saved.</p>
+
+        <h3>4. Parental gate and links out of the App</h3>
+        <p>The Settings screen and the link to this policy open only after a multiplication question
+          (the parental gate). The only links leaving the App are this policy page and the support
+          email address, both behind that gate. There are no ad links and no cross-promotion.</p>
+
+        <h3>5. Network activity and third parties</h3>
+        <p>The App has no networking code. It contains no advertising SDKs, analytics, crash
+          reporters or social logins, so there is no personal data to share with third parties or
+          transfer across borders.</p>
+
+        <h3>6. Children’s privacy</h3>
+        <p>The App is intended for children aged 5 and up and collects no personal data of any kind,
+          including data covered by COPPA (US), the GDPR (EU) and Korea’s Personal Information
+          Protection Act. It contains no in-app purchases and no chat, sharing or other social features.</p>
+
+        <h3>7. Your rights</h3>
+        <p>Because no data is collected, there is nothing to request access to, correct, delete or
+          restrict. The stars and unlocked levels held on the device can be removed at any time with
+          <strong>Reset Progress</strong> in Settings or by deleting the App.</p>
+
+        <h3>8. Changes to this policy</h3>
+        <p>If anything changes we will update this page and the “last updated” date below.
+          Significant changes will also be noted in the App’s release notes.</p>
+
+        <h3>9. Contact</h3>
+        <p>Privacy questions: <a href="mailto:baby.planner.wooni@gmail.com">baby.planner.wooni@gmail.com</a></p>
+      </div>
+    </details>
+  </main>
+
+  <footer>
+    <p data-lang="ko">최종 수정일: 2026년 8월 27일</p>
+    <p data-lang="en">Last updated: 27 August 2026</p>
+    <p>© Copyright Wooni</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll("[data-set-lang]");
+
+    function apply(lang) {
+      document.documentElement.lang = lang;
+      buttons.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.setLang === lang));
+      });
+      try { localStorage.setItem("mazeplay-privacy-lang", lang); } catch (e) {}
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem("mazeplay-privacy-lang"); } catch (e) {}
+    var prefersKo = (navigator.language || "en").toLowerCase().indexOf("ko") === 0;
+    apply(saved === "ko" || saved === "en" ? saved : (prefersKo ? "ko" : "en"));
+
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { apply(b.dataset.setLang); });
+    });
+  })();
+</script>
+</body>
+</html>
